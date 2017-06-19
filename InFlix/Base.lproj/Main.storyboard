@@ -1,11 +1,161 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Tsc-O9-ZsJ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Tab Bar Controller-->
+        <scene sceneID="Jom-iG-w92">
+            <objects>
+                <tabBarController id="Tsc-O9-ZsJ" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="mhw-lQ-tY4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="QkK-Al-CNZ" kind="relationship" relationship="viewControllers" id="WP2-xc-WSu"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jZP-KF-X8r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1026" y="129"/>
+        </scene>
+        <!--SearchVC-->
+        <scene sceneID="bla-g0-FAk">
+            <objects>
+                <viewController id="q9U-59-Stm" customClass="SearchVC" customModule="InFlix" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="f06-ZJ-jTO"/>
+                        <viewControllerLayoutGuide type="bottom" id="jlA-O7-Smb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4XX-c3-Adp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1z5-dH-uEx">
+                                <rect key="frame" x="16" y="259.5" width="343" height="148"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8xJ-SB-A4z">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="110"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Yuw-0S-HiI">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Title" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPj-rL-X22">
+                                                        <rect key="frame" x="0.0" y="0.0" width="83.5" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ex. The Mummy" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="363-cV-yEw">
+                                                        <rect key="frame" x="91.5" y="0.0" width="251.5" height="30"/>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hEI-fD-Ng7">
+                                                <rect key="frame" x="0.0" y="40" width="343" height="30"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Actor" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WU-ac-qhd">
+                                                        <rect key="frame" x="0.0" y="0.0" width="83.5" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ex. Nicholas Cage" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d72-jC-c49">
+                                                        <rect key="frame" x="91.5" y="0.0" width="251.5" height="30"/>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dS7-bF-UqJ">
+                                                <rect key="frame" x="0.0" y="80" width="343" height="30"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Director" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ti-Eg-nXS">
+                                                        <rect key="frame" x="0.0" y="0.0" width="83.5" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ex. Quentin Tarantino" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OBn-OH-ch6">
+                                                        <rect key="frame" x="91.5" y="0.0" width="251.5" height="30"/>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="363-cV-yEw" firstAttribute="width" secondItem="d72-jC-c49" secondAttribute="width" id="WqV-S0-1oj"/>
+                                            <constraint firstItem="OBn-OH-ch6" firstAttribute="width" secondItem="363-cV-yEw" secondAttribute="width" id="XOn-27-pxa"/>
+                                        </constraints>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wD-hI-S2R">
+                                        <rect key="frame" x="0.0" y="118" width="343" height="30"/>
+                                        <state key="normal" title="Search for the movie"/>
+                                        <connections>
+                                            <action selector="searchMovie" destination="q9U-59-Stm" eventType="touchUpInside" id="Qc7-2U-89n"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="InFlix" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J1v-iN-8Oz">
+                                <rect key="frame" x="160" y="80" width="55" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="1z5-dH-uEx" secondAttribute="trailing" constant="16" id="6ng-AY-1x0"/>
+                            <constraint firstItem="J1v-iN-8Oz" firstAttribute="top" secondItem="f06-ZJ-jTO" secondAttribute="bottom" constant="16" id="CP4-Mm-pXe"/>
+                            <constraint firstItem="J1v-iN-8Oz" firstAttribute="centerX" secondItem="4XX-c3-Adp" secondAttribute="centerX" id="HZf-LL-REC"/>
+                            <constraint firstItem="1z5-dH-uEx" firstAttribute="centerX" secondItem="4XX-c3-Adp" secondAttribute="centerX" id="JeR-6A-2Xf"/>
+                            <constraint firstItem="1z5-dH-uEx" firstAttribute="leading" secondItem="4XX-c3-Adp" secondAttribute="leading" constant="16" id="hEy-RN-PSo"/>
+                            <constraint firstItem="1z5-dH-uEx" firstAttribute="centerY" secondItem="4XX-c3-Adp" secondAttribute="centerY" id="lSY-q7-R22"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="iai-hj-5e9"/>
+                    <connections>
+                        <outlet property="actorTextField" destination="d72-jC-c49" id="n2c-be-5y1"/>
+                        <outlet property="directorTextField" destination="OBn-OH-ch6" id="yD7-BU-6IF"/>
+                        <outlet property="movieTextField" destination="363-cV-yEw" id="nV8-kn-ugT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ISR-gD-cDL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="428" y="126.38680659670166"/>
+        </scene>
+        <!--Movie-->
+        <scene sceneID="35m-Kf-iWu">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QkK-Al-CNZ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Movie" id="rbx-Tf-prN"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fAD-yP-tNH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="q9U-59-Stm" kind="relationship" relationship="rootViewController" id="c7w-lE-LEj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WCY-KZ-6ll" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-298.39999999999998" y="127.28635682158921"/>
+        </scene>
+    </scenes>
 </document>
