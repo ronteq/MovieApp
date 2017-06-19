@@ -15,6 +15,9 @@
 		4C97F2071EF85FE000F9C1DA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C97F2061EF85FE000F9C1DA /* Constants.swift */; };
 		4C97F2091EF8623000F9C1DA /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C97F2081EF8623000F9C1DA /* SearchVC.swift */; };
 		4C97F20B1EF8626200F9C1DA /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C97F20A1EF8626200F9C1DA /* Movie.swift */; };
+		4C97F20D1EF868BC00F9C1DA /* MoviesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C97F20C1EF868BC00F9C1DA /* MoviesVC.swift */; };
+		4C97F2101EF86C1300F9C1DA /* GeneralMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C97F20F1EF86C1300F9C1DA /* GeneralMethods.swift */; };
+		4C97F2131EF8708100F9C1DA /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C97F2121EF8708100F9C1DA /* MovieService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		4C97F2061EF85FE000F9C1DA /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4C97F2081EF8623000F9C1DA /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		4C97F20A1EF8626200F9C1DA /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		4C97F20C1EF868BC00F9C1DA /* MoviesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesVC.swift; sourceTree = "<group>"; };
+		4C97F20F1EF86C1300F9C1DA /* GeneralMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralMethods.swift; sourceTree = "<group>"; };
+		4C97F2121EF8708100F9C1DA /* MovieService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +66,9 @@
 		4C97F1DF1EF8596100F9C1DA /* InFlix */ = {
 			isa = PBXGroup;
 			children = (
+				4C97F20E1EF86C0400F9C1DA /* General */,
 				4C97F2041EF85C4400F9C1DA /* Persistence */,
+				4C97F2111EF8706800F9C1DA /* Networking */,
 				4C97F2021EF85C2900F9C1DA /* Models */,
 				4C97F2001EF85BE600F9C1DA /* Controllers */,
 				4C97F2031EF85C2E00F9C1DA /* Views */,
@@ -68,7 +76,6 @@
 				4C97F2011EF85C0F00F9C1DA /* Resources */,
 				4C97F1E01EF8596100F9C1DA /* AppDelegate.swift */,
 				4C97F1EF1EF8596100F9C1DA /* Info.plist */,
-				4C97F2061EF85FE000F9C1DA /* Constants.swift */,
 			);
 			path = InFlix;
 			sourceTree = "<group>";
@@ -77,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				4C97F2081EF8623000F9C1DA /* SearchVC.swift */,
+				4C97F20C1EF868BC00F9C1DA /* MoviesVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -119,6 +127,23 @@
 				4C97F1E41EF8596100F9C1DA /* Main.storyboard */,
 			);
 			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		4C97F20E1EF86C0400F9C1DA /* General */ = {
+			isa = PBXGroup;
+			children = (
+				4C97F2061EF85FE000F9C1DA /* Constants.swift */,
+				4C97F20F1EF86C1300F9C1DA /* GeneralMethods.swift */,
+			);
+			name = General;
+			sourceTree = "<group>";
+		};
+		4C97F2111EF8706800F9C1DA /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				4C97F2121EF8708100F9C1DA /* MovieService.swift */,
+			);
+			name = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,11 +219,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C97F2101EF86C1300F9C1DA /* GeneralMethods.swift in Sources */,
 				4C97F2091EF8623000F9C1DA /* SearchVC.swift in Sources */,
 				4C97F1E91EF8596100F9C1DA /* InFlix.xcdatamodeld in Sources */,
 				4C97F1E11EF8596100F9C1DA /* AppDelegate.swift in Sources */,
 				4C97F2071EF85FE000F9C1DA /* Constants.swift in Sources */,
 				4C97F20B1EF8626200F9C1DA /* Movie.swift in Sources */,
+				4C97F2131EF8708100F9C1DA /* MovieService.swift in Sources */,
+				4C97F20D1EF868BC00F9C1DA /* MoviesVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +392,7 @@
 				4C97F1F41EF8596100F9C1DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

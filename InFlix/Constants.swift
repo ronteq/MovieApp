@@ -10,6 +10,18 @@ import Foundation
 
 struct Constants{
     struct APIEndpoints{
-        let baseUrl = "http://netflixroulette.net/api/api.php" //?title=Attack%20on%20titan
+        static private let baseUrl = "http://netflixroulette.net/api/api.php"
+        
+        static func movieListUrl(withTitle title: String)-> String{
+            return "\(baseUrl)?title=\(title)"
+        }
+        
+        static func movieListUrl(withActor actor: String)-> String{
+            return "\(baseUrl)?actor=\(actor)"
+        }
+        
+        static func movieListUrl(withDirector director: String)-> String{
+            return "\(baseUrl)?director=\(director)"
+        }
     }
 }
