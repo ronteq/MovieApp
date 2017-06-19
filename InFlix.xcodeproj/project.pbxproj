@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4C97F1E11EF8596100F9C1DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C97F1E01EF8596100F9C1DA /* AppDelegate.swift */; };
-		4C97F1E31EF8596100F9C1DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C97F1E21EF8596100F9C1DA /* ViewController.swift */; };
 		4C97F1E61EF8596100F9C1DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C97F1E41EF8596100F9C1DA /* Main.storyboard */; };
 		4C97F1E91EF8596100F9C1DA /* InFlix.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C97F1E71EF8596100F9C1DA /* InFlix.xcdatamodeld */; };
 		4C97F1EB1EF8596100F9C1DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C97F1EA1EF8596100F9C1DA /* Assets.xcassets */; };
@@ -18,7 +17,6 @@
 /* Begin PBXFileReference section */
 		4C97F1DD1EF8596100F9C1DA /* InFlix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InFlix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C97F1E01EF8596100F9C1DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4C97F1E21EF8596100F9C1DA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4C97F1E51EF8596100F9C1DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4C97F1E81EF8596100F9C1DA /* InFlix.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = InFlix.xcdatamodel; sourceTree = "<group>"; };
 		4C97F1EA1EF8596100F9C1DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,15 +54,62 @@
 		4C97F1DF1EF8596100F9C1DA /* InFlix */ = {
 			isa = PBXGroup;
 			children = (
+				4C97F2041EF85C4400F9C1DA /* Persistence */,
+				4C97F2021EF85C2900F9C1DA /* Models */,
+				4C97F2001EF85BE600F9C1DA /* Controllers */,
+				4C97F2031EF85C2E00F9C1DA /* Views */,
+				4C97F2051EF85C5800F9C1DA /* Storyboards */,
+				4C97F2011EF85C0F00F9C1DA /* Resources */,
 				4C97F1E01EF8596100F9C1DA /* AppDelegate.swift */,
-				4C97F1E21EF8596100F9C1DA /* ViewController.swift */,
-				4C97F1E41EF8596100F9C1DA /* Main.storyboard */,
-				4C97F1EA1EF8596100F9C1DA /* Assets.xcassets */,
-				4C97F1EC1EF8596100F9C1DA /* LaunchScreen.storyboard */,
 				4C97F1EF1EF8596100F9C1DA /* Info.plist */,
-				4C97F1E71EF8596100F9C1DA /* InFlix.xcdatamodeld */,
 			);
 			path = InFlix;
+			sourceTree = "<group>";
+		};
+		4C97F2001EF85BE600F9C1DA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		4C97F2011EF85C0F00F9C1DA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4C97F1EA1EF8596100F9C1DA /* Assets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		4C97F2021EF85C2900F9C1DA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		4C97F2031EF85C2E00F9C1DA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		4C97F2041EF85C4400F9C1DA /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				4C97F1E71EF8596100F9C1DA /* InFlix.xcdatamodeld */,
+			);
+			name = Persistence;
+			sourceTree = "<group>";
+		};
+		4C97F2051EF85C5800F9C1DA /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				4C97F1EC1EF8596100F9C1DA /* LaunchScreen.storyboard */,
+				4C97F1E41EF8596100F9C1DA /* Main.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,7 +185,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C97F1E91EF8596100F9C1DA /* InFlix.xcdatamodeld in Sources */,
-				4C97F1E31EF8596100F9C1DA /* ViewController.swift in Sources */,
 				4C97F1E11EF8596100F9C1DA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
