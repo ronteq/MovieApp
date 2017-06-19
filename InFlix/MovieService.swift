@@ -9,7 +9,7 @@
 import Foundation
 
 class MovieService{
-    static func getMovies(withTitle title: String, completion: @escaping(_ movies: [Movie])-> Void){
+    static func getMovies(withTitle title: String, completion: @escaping(_ movie: Movie?, _ errorMessage: String?)-> Void){
         let url = URL(string: Constants.APIEndpoints.movieListUrl(withTitle: title))
         var request = URLRequest(url: url!)
         
@@ -20,16 +20,24 @@ class MovieService{
         session.dataTask(with: request) { (data, response, error) in
             if error != nil{
                 print("Error when trying to get the movies. \(error!.localizedDescription)")
+                return
             }
             
-            if let data = data{
-                //TODO: Parse the data from an array of JSON or a single JSON object
-                completion([Movie]())
+            if let httpResponse = response as? HTTPURLResponse{
+                switch httpResponse.statusCode{
+                case 200:
+                    if let data = data{
+                        let json = GeneralMethods.decodeJsonFromData(data: data)
+                        let movie = Movie(dictionary: json)
+                        
+                        completion(movie, nil)
+                    }
+                case 404: completion(nil, "Sorry! We couldn't find a movie with that title")
+                default: break
+                }
             }
+            
+            
         }.resume()
     }
 }
-
-/*init para movie acoder, convenience (parsear)
- pushear, rama por funcionalidad
- */
