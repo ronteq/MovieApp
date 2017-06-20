@@ -11,7 +11,7 @@ import UIKit
 class MovieHomeVC: UIViewController {
     
     @IBOutlet fileprivate weak var searchTextField: UITextField!
-
+    
     var placeholder: String?
     
     override func viewDidLoad() {
@@ -21,18 +21,42 @@ class MovieHomeVC: UIViewController {
     }
 }
 
-extension MovieHomeVC{
+//MARK: -Initial Setup
+
+extension MovieHomeVC: UITextFieldDelegate{
     
     fileprivate func initialSetup(){
+        searchTextField.delegate = self
+        
         setupPlaceholderForTextField()
+        addTapGestureToView()
     }
     
     fileprivate func setupPlaceholderForTextField(){
         searchTextField.placeholder = placeholder
     }
     
+    fileprivate func addTapGestureToView(){
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(MovieHomeVC.dismissKeyboard))
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
     fileprivate struct AlertMessages{
         static let validateEmptyTextFields = "Please fill at least one of the text fields"
+    }
+}
+
+//MARK: -Textfield Methods
+
+extension MovieHomeVC{
+    @objc fileprivate func dismissKeyboard(){
+        searchTextField.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTextField.resignFirstResponder()
+        
+        return true
     }
 }
 
