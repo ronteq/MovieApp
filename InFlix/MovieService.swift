@@ -18,26 +18,48 @@ class MovieService{
         
         let session = URLSession.shared
         session.dataTask(with: request) { (data, response, error) in
-            if error != nil{
-                print("Error when trying to get the movies. \(error!.localizedDescription)")
-                return
-            }
-            
-            if let httpResponse = response as? HTTPURLResponse{
-                switch httpResponse.statusCode{
-                case 200:
+            if let error = error{
+                completion(nil, error.localizedDescription)
+            }else{
+                
+                if let httpResponse = response as? HTTPURLResponse, let responseCode = HttpResponseCode(rawValue: httpResponse.statusCode) {
                     if let data = data{
                         let json = GeneralMethods.decodeJsonFromData(data: data)
-                        let movie = Movie(dictionary: json)
                         
-                        completion(movie, nil)
+                        switch responseCode {
+                        case .success:
+                            let movie = Movie(dictionary: json)
+                            completion(movie, nil)
+                            
+                        case .notFound:
+                            let errorMessage = getErrorMessage(from: json)
+                            completion(nil, errorMessage)
+                            
+                        case .serverError:
+                            let errorMessage = getErrorMessage(from: json)
+                            completion(nil, errorMessage)
+                        }
                     }
-                case 404: completion(nil, "Sorry! We couldn't find a movie with that title")
-                default: break
                 }
+                
             }
             
-            
         }.resume()
+    }
+    
+    private static func getErrorMessage(from dictionary: [String: AnyObject])-> String{
+        if let errorMessage = dictionary["message"] as? String{
+            return errorMessage
+        }else{
+            return "Generic Error"
+        }
+    }
+}
+
+extension MovieService {
+    fileprivate enum HttpResponseCode : Int {
+        case success = 200
+        case notFound = 404
+        case serverError = 500
     }
 }

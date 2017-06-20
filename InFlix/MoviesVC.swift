@@ -12,9 +12,7 @@ class MoviesVC: UIViewController {
     
     var movie: Movie? {
         didSet{
-            if let movie = movie{
-                print(movie.title)
-            }
+            
         }
     }
     

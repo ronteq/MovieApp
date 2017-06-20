@@ -9,100 +9,36 @@
 import Foundation
 
 class Movie{
-    private var _title: String!
-    private var _releaseYear: String!
-    private var _rating: String!
-    private var _category: String!
-    private var _cast: String!
-    private var _director: String!
-    private var _posterUrl: String!
-    private var _runtime: String!
-    
-    var title: String{
-        if _title == nil{
-            _title = ""
-        }
-        
-        return _title
-    }
-    
-    var releaseYear: String{
-        if _releaseYear == nil{
-            _releaseYear = ""
-        }
-        
-        return _releaseYear
-    }
-    
-    var rating: String{
-        if _rating == nil{
-            _rating = ""
-        }
-        
-        return _rating
-    }
-    
-    var category: String{
-        if _category == nil{
-            _category = ""
-        }
-        
-        return _category
-    }
-    
-    var cast: String{
-        if _cast == nil{
-            _cast = String()
-        }
-        
-        return _cast
-    }
-    
-    var director: String{
-        if _director == nil{
-            _director = ""
-        }
-        
-        return _director
-    }
-    
-    var posterUrl: String{
-        if _posterUrl == nil{
-            _posterUrl = ""
-        }
-        
-        return _posterUrl
-    }
-    
-    var runtime: String{
-        if _runtime == nil{
-            _runtime = ""
-        }
-        
-        return _runtime
-    }
+    var title: String?
+    var releaseYear: String?
+    var rating: String?
+    var category: String?
+    var cast: String?
+    var director: String?
+    var posterUrl: String?
+    var runtime: String?
     
     init(title: String, releaseYear: String, rating: String, category: String, cast: String, director: String, posterUrl: String, runtime: String) {
-        _title = title
-        _releaseYear = releaseYear
-        _rating = rating
-        _category = category
-        _cast = cast
-        _director = director
-        _posterUrl = posterUrl
-        _runtime = runtime
+        self.title = title
+        self.releaseYear = releaseYear
+        self.rating = rating
+        self.category = category
+        self.cast = cast
+        self.director = director
+        self.posterUrl = posterUrl
+        self.runtime = runtime
     }
     
     convenience init(dictionary: [String: AnyObject]){
         
-        guard let title = dictionary["show_title"] as? String,
-            let releaseYear = dictionary["release_year"] as? String,
-            let rating = dictionary["rating"] as? String,
-            let category = dictionary["category"] as? String,
-            let cast = dictionary["show_cast"] as? String,
-            let director = dictionary["director"] as? String,
-            let posterUrl = dictionary["poster"] as? String,
-            let runtime = dictionary["runtime"] as? String else{
+        guard let title = dictionary[JSONKeys.showTitle] as? String,
+            let releaseYear = dictionary[JSONKeys.releaseYear] as? String,
+            let rating = dictionary[JSONKeys.rating] as? String,
+            let category = dictionary[JSONKeys.category] as? String,
+            let cast = dictionary[JSONKeys.showCast] as? String,
+            let director = dictionary[JSONKeys.director] as? String,
+            let posterUrl = dictionary[JSONKeys.posterUrl] as? String,
+            let runtime = dictionary[JSONKeys.runtime] as? String else{
                 self.init(title: "", releaseYear: "", rating: "", category: "", cast: "", director: "", posterUrl: "", runtime: "")
                 return
         }
@@ -112,3 +48,18 @@ class Movie{
         
     }
 }
+
+fileprivate struct JSONKeys{
+    static let showTitle = "show_title"
+    static let releaseYear = "release_year"
+    static let rating = "rating"
+    static let category = "category"
+    static let showCast = "show_cast"
+    static let director = "director"
+    static let posterUrl = "poster"
+    static let runtime = "runtime"
+}
+
+
+
+

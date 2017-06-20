@@ -43,23 +43,21 @@ class SearchVC: UIViewController {
     private func fetchMovies(title: String, actor: String, director: String){
         MovieService.getMovies(withTitle: title){ (movie, errorMessage) in
             
-            DispatchQueue.main.async {
+            OperationQueue.main.addOperation {
                 if let message = errorMessage{
                     let alert = GeneralMethods.createAlert(withMessage: message)
                     self.present(alert, animated: true, completion: nil)
-                    return
+                }else{
+                    self.movie = movie
+                    self.goToMoviesVC()
                 }
-                
-                self.movie = movie
-                self.goToMoviesVC()
             }
-            
         }
     }
     
     private func goToMoviesVC(){
         let moviesVC = MoviesVC()
-        moviesVC.movie = self.movie
+        moviesVC.movie = movie
         navigationController?.pushViewController(moviesVC, animated: true)
     }
 }
