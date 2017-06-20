@@ -11,7 +11,6 @@ import UIKit
 class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     @IBOutlet fileprivate weak var tableView: UITableView!
-    fileprivate var movie: Movie?
     fileprivate let searchNames = ["Search by Movie", "Search by Actor", "Search by Director"]
     fileprivate let iconImageNames = ["iconMovie", "iconActor", "iconDirector"]
     
