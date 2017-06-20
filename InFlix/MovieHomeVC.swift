@@ -10,18 +10,29 @@ import UIKit
 
 class MovieHomeVC: UIViewController {
     
-    @IBOutlet private weak var searchTextField: UITextField!
+    @IBOutlet fileprivate weak var searchTextField: UITextField!
 
     var placeholder: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initialSetup()
+    }
+}
+
+extension MovieHomeVC{
+    
+    fileprivate func initialSetup(){
         setupPlaceholderForTextField()
     }
     
-    private func setupPlaceholderForTextField(){
+    fileprivate func setupPlaceholderForTextField(){
         searchTextField.placeholder = placeholder
+    }
+    
+    fileprivate struct AlertMessages{
+        static let validateEmptyTextFields = "Please fill at least one of the text fields"
     }
 }
 
@@ -31,8 +42,8 @@ class MovieHomeVC: UIViewController {
         return
     }
     
-    if titleStringWithSpaces.isEmpty && actorStringWithSpaces.isEmpty && directorStringWithSpaces.isEmpty{
-        let alert = GeneralMethods.createAlert(withMessage: "Please fill in at least one of the text fields")
+    if titleStringWithSpaces.isEmpty, actorStringWithSpaces.isEmpty, directorStringWithSpaces.isEmpty{
+        let alert = GeneralMethods.createAlert(withMessage: AlertMessages.validateEmptyTextFields)
         present(alert, animated: true, completion: nil)
     }else{
         let title = GeneralMethods.prepareStringForUrl(titleStringWithSpaces)

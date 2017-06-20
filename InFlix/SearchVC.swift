@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class SearchVC: UIViewController{
     
     @IBOutlet fileprivate weak var tableView: UITableView!
     fileprivate let searchNames = ["Search by Movie", "Search by Actor", "Search by Director"]
@@ -17,12 +17,11 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        initialSetup()
     }
         
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier, identifier == "searchSegue"{
+        if let identifier = segue.identifier, identifier == Segues.searchSegue{
             if let movieHomeVC = segue.destination as? MovieHomeVC, let placeholder = sender as? String{
                 movieHomeVC.placeholder = placeholder
             }
@@ -30,7 +29,25 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     }
 }
 
-//MARK: TableView methods
+//MARK: -Initial Setup
+
+extension SearchVC: UITableViewDelegate, UITableViewDataSource{
+    
+    fileprivate func initialSetup(){
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    fileprivate struct CellId{
+        static let searchCellId = "mainCell"
+    }
+    
+    fileprivate struct Segues{
+        static let searchSegue = "searchSegue"
+    }
+}
+
+//MARK: -TableView methods
 
 extension SearchVC{
     
@@ -39,7 +56,7 @@ extension SearchVC{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIds.searchCellId, for: indexPath) as! SearchCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellId.searchCellId, for: indexPath) as! SearchCell
         
         let iconImageName = iconImageNames[indexPath.row]
         let searchName = searchNames[indexPath.row]
@@ -56,7 +73,8 @@ extension SearchVC{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let placeholder = searchNames[indexPath.row]
-        performSegue(withIdentifier: "searchSegue", sender: placeholder)
+        performSegue(withIdentifier: Segues.searchSegue, sender: placeholder)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+
