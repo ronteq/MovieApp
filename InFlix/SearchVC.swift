@@ -14,7 +14,7 @@ class SearchVC: UIViewController {
     @IBOutlet private weak var actorTextField: UITextField!
     @IBOutlet private weak var directorTextField: UITextField!
     
-    private var movies = [Movie]()
+    private var movie: Movie?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,19 +41,23 @@ class SearchVC: UIViewController {
     }
     
     private func fetchMovies(title: String, actor: String, director: String){
-        MovieService.getMovies(withTitle: title){ (movies) in
+        MovieService.getMovies(withTitle: title){ (movie, errorMessage) in
             
-            DispatchQueue.main.async {
-                self.movies = movies
-                self.goToMoviesVC()
+            OperationQueue.main.addOperation {
+                if let message = errorMessage{
+                    let alert = GeneralMethods.createAlert(withMessage: message)
+                    self.present(alert, animated: true, completion: nil)
+                }else{
+                    self.movie = movie
+                    self.goToMoviesVC()
+                }
             }
-            
         }
     }
     
     private func goToMoviesVC(){
         let moviesVC = MoviesVC()
-        moviesVC.movies = self.movies
+        moviesVC.movie = movie
         navigationController?.pushViewController(moviesVC, animated: true)
     }
 }

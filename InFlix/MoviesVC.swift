@@ -10,9 +10,9 @@ import UIKit
 
 class MoviesVC: UIViewController {
     
-    var movies: [Movie]? {
+    var movie: Movie? {
         didSet{
-            print("movies loaded")
+            
         }
     }
     
