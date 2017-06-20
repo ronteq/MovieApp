@@ -24,4 +24,13 @@ struct Constants{
             return "\(baseUrl)?director=\(director)"
         }
     }
+    
+    struct CellIds{
+        static let searchCellId = "mainCell"
+    }
+    
+    struct Fonts{
+        static let fontStyleForCells = "Helvetica-Light"
+        static let fontSizeForCells = 18
+    }
 }
