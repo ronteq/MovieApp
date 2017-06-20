@@ -10,7 +10,7 @@ import Foundation
 
 class MovieService{
     static func getMovies(withTitle title: String, completion: @escaping(_ movie: Movie?, _ errorMessage: String?)-> Void){
-        let url = URL(string: Constants.APIEndpoints.movieListUrl(withTitle: title))
+        let url = URL(string: APIEndpoints.movieListUrl(withTitle: title))
         var request = URLRequest(url: url!)
         
         request.setValue("application/json", forHTTPHeaderField: "Accept")
@@ -24,7 +24,7 @@ class MovieService{
                 
                 if let httpResponse = response as? HTTPURLResponse, let responseCode = HttpResponseCode(rawValue: httpResponse.statusCode) {
                     if let data = data{
-                        let json = GeneralMethods.decodeJsonFromData(data: data)
+                        let json = JSONParser.decodeJsonFromData(data: data)
                         
                         switch responseCode {
                         case .success:
