@@ -8,11 +8,18 @@
 
 import UIKit
 
+enum SearchMethod : Int {
+    case movie = 0
+    case actor = 1
+    case director = 2
+}
+
 class SearchVC: UIViewController{
     
     @IBOutlet fileprivate weak var tableView: UITableView!
     fileprivate let searchNames = ["Search by Movie", "Search by Actor", "Search by Director"]
     fileprivate let iconImageNames = ["iconMovie", "iconActor", "iconDirector"]
+    fileprivate var searchMethod = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +31,7 @@ class SearchVC: UIViewController{
         if let identifier = segue.identifier, identifier == Segues.searchSegue{
             if let movieHomeVC = segue.destination as? MovieHomeVC, let placeholder = sender as? String{
                 movieHomeVC.placeholder = placeholder
+                movieHomeVC.searchMethod = searchMethod
             }
         }
     }
@@ -31,7 +39,7 @@ class SearchVC: UIViewController{
 
 //MARK: -Initial Setup
 
-extension SearchVC: UITableViewDelegate, UITableViewDataSource{
+extension SearchVC{
     
     fileprivate func initialSetup(){
         tableView.delegate = self
@@ -49,10 +57,10 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource{
 
 //MARK: -TableView methods
 
-extension SearchVC{
+extension SearchVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return iconImageNames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -72,6 +80,15 @@ extension SearchVC{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let searchMethod = SearchMethod(rawValue: indexPath.row){
+            switch searchMethod{
+            case .movie: self.searchMethod = searchMethod.rawValue
+            case .actor: self.searchMethod = searchMethod.rawValue
+            case .director: self.searchMethod = searchMethod.rawValue
+            }
+        }
+        
         let placeholder = searchNames[indexPath.row]
         performSegue(withIdentifier: Segues.searchSegue, sender: placeholder)
         tableView.deselectRow(at: indexPath, animated: true)

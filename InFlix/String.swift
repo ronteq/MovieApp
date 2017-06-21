@@ -10,8 +10,19 @@ import Foundation
 
 extension String{
     
-    func prepareStringForUrl()-> String{
-        let finalString = self.replacingOccurrences(of: " ", with: "%20")
+    func prepareStringForInflixAPI()-> String{
+        var finalString = self.replacingOccurrences(of: " ", with: "%20")
+        let lastIndex = finalString.endIndex
+        
+        if finalString.characters.count > 3{
+            let indexFromLastThreeCharacters = finalString.index(lastIndex, offsetBy: -3)
+            let lastThreeCharacters = finalString.substring(from: indexFromLastThreeCharacters)
+            
+            if lastThreeCharacters == "%20"{
+                finalString = finalString.substring(to: indexFromLastThreeCharacters)
+            }
+        }
+        
         return finalString
     }
     
