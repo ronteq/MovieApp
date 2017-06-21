@@ -6,11 +6,14 @@
 //  Copyright © 2017 Daniel Fernandez. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Constants{
     struct Fonts{
-        static let fontStyleForCells = "Helvetica-Light"
-        static let fontSizeForCells = 18
+        static let fontStyleForNormalCells = "Helvetica-Light"
+        static let fontStyleForTitleCells = "Helvetica-Bold"
+        static let fontSizeForTitleCells = 18
+        static let fontSizeForNormalCells = 14
+        static let fontSizeForDetailCells = 12
     }
 }
