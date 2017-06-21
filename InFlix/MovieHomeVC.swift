@@ -25,7 +25,7 @@ class MovieHomeVC: UIViewController {
 
 //MARK: -Initial Setup
 
-extension MovieHomeVC: UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+extension MovieHomeVC{
     
     fileprivate func initialSetup(){
         searchTextField.delegate = self
@@ -84,7 +84,7 @@ extension MovieHomeVC: UITextFieldDelegate, UICollectionViewDelegate, UICollecti
 
 //MARK: -Textfield Methods
 
-extension MovieHomeVC{
+extension MovieHomeVC: UITextFieldDelegate{
     @objc fileprivate func dismissKeyboard(){
         searchTextField.resignFirstResponder()
     }
@@ -98,7 +98,7 @@ extension MovieHomeVC{
 
 //MARK: -CollectionView Methods
 
-extension MovieHomeVC{
+extension MovieHomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }

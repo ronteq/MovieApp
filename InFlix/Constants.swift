@@ -16,8 +16,4 @@ struct Constants{
         static let fontSizeForNormalCells = 14
         static let fontSizeForDetailCells = 12
     }
-    
-    struct Colors{
-        static let defaultGray = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1.0)
-    }
 }

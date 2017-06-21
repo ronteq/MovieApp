@@ -13,7 +13,7 @@ class MovieCell: UICollectionViewCell{
     fileprivate lazy var movieImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "mummy")
+        imageView.image = UIImage(named: LabelExamples.movieImageExample)
         imageView.layer.cornerRadius = 60
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +25,7 @@ class MovieCell: UICollectionViewCell{
         label.textColor = UIColor.darkGray
         label.textAlignment = .center
         label.numberOfLines = 2
-        label.text = "The Mummy returns"
+        label.text = LabelExamples.movieTitleExample
         label.font = UIFont(name: Constants.Fonts.fontStyleForTitleCells, size: CGFloat(Constants.Fonts.fontSizeForNormalCells))
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -35,7 +35,7 @@ class MovieCell: UICollectionViewCell{
         let label = UILabel()
         label.textColor = UIColor.darkGray
         label.textAlignment = .center
-        label.text = "Category: Thriller"
+        label.text = LabelExamples.categoryLabelExample
         label.font = UIFont(name: Constants.Fonts.fontStyleForNormalCells, size: CGFloat(Constants.Fonts.fontSizeForDetailCells))
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -45,7 +45,7 @@ class MovieCell: UICollectionViewCell{
         let label = UILabel()
         label.textColor = UIColor.darkGray
         label.textAlignment = .center
-        label.text = "Release Year: 2013"
+        label.text = LabelExamples.releaseYearExample
         label.font = UIFont(name: Constants.Fonts.fontStyleForNormalCells, size: CGFloat(Constants.Fonts.fontSizeForDetailCells))
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -83,5 +83,14 @@ class MovieCell: UICollectionViewCell{
         releaseYearLabel.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 8).isActive = true
         releaseYearLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
         releaseYearLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
+    }
+}
+
+extension MovieCell{
+    fileprivate struct LabelExamples{
+        static let movieImageExample = "mummy"
+        static let movieTitleExample = "The Mummy Returns"
+        static let categoryLabelExample = "Category: Thriller"
+        static let releaseYearExample = "Release Year: 2013"
     }
 }
