@@ -47,6 +47,17 @@ class Movie{
             , runtime: runtime)
         
     }
+    
+    static func getMovieListFromArray(_ arrayDictionary: [[String: AnyObject]])-> [Movie]{
+        var movies = [Movie]()
+        
+        for dictionary in arrayDictionary{
+            let movie = Movie(dictionary: dictionary)
+            movies.append(movie)
+        }
+        
+        return movies
+    }
 }
 
 fileprivate struct JSONKeys{

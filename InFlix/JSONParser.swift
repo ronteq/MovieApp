@@ -8,7 +8,7 @@
 
 import Foundation
 
-class JSONParser{
+struct JSONParser{
     static func decodeJsonFromData(data: Data)-> [String: AnyObject]{
         var json = [String: AnyObject]()
         

@@ -13,7 +13,7 @@ class MovieCell: UICollectionViewCell{
     fileprivate lazy var movieImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: LabelExamples.movieImageExample)
+        imageView.backgroundColor = ColorPalette.defaultGray
         imageView.layer.cornerRadius = 60
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +25,6 @@ class MovieCell: UICollectionViewCell{
         label.textColor = UIColor.darkGray
         label.textAlignment = .center
         label.numberOfLines = 2
-        label.text = LabelExamples.movieTitleExample
         label.font = UIFont(name: Constants.Fonts.fontStyleForTitleCells, size: CGFloat(Constants.Fonts.fontSizeForNormalCells))
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -35,7 +34,6 @@ class MovieCell: UICollectionViewCell{
         let label = UILabel()
         label.textColor = UIColor.darkGray
         label.textAlignment = .center
-        label.text = LabelExamples.categoryLabelExample
         label.font = UIFont(name: Constants.Fonts.fontStyleForNormalCells, size: CGFloat(Constants.Fonts.fontSizeForDetailCells))
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -45,11 +43,23 @@ class MovieCell: UICollectionViewCell{
         let label = UILabel()
         label.textColor = UIColor.darkGray
         label.textAlignment = .center
-        label.text = LabelExamples.releaseYearExample
         label.font = UIFont(name: Constants.Fonts.fontStyleForNormalCells, size: CGFloat(Constants.Fonts.fontSizeForDetailCells))
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    var movie: Movie? {
+        didSet{
+            guard let title = movie?.title, let category = movie?.category, let releaseYear = movie?.releaseYear, let posterUrl = movie?.posterUrl else{
+                return
+            }
+            
+            movieTitleLabel.text = title
+            categoryLabel.text = "Category: \(category)"
+            releaseYearLabel.text = "Release Year: \(releaseYear)"
+            movieImageView.loadImageUsingCacheWith(urlString: posterUrl)
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -83,14 +93,5 @@ class MovieCell: UICollectionViewCell{
         releaseYearLabel.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 8).isActive = true
         releaseYearLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
         releaseYearLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
-    }
-}
-
-extension MovieCell{
-    fileprivate struct LabelExamples{
-        static let movieImageExample = "mummy"
-        static let movieTitleExample = "The Mummy Returns"
-        static let categoryLabelExample = "Category: Thriller"
-        static let releaseYearExample = "Release Year: 2013"
     }
 }

@@ -13,14 +13,47 @@ class MovieHomeVC: UIViewController {
     @IBOutlet fileprivate weak var searchTextField: UITextField!
     
     fileprivate var movieCollectionView: UICollectionView!
+    fileprivate var movie: Movie?
+    fileprivate var movies: [Movie]?
+    fileprivate lazy var activityIndicator: ActivityIndicator = {
+        let activityIndicator = ActivityIndicator()
+        return activityIndicator
+    }()
     
     var placeholder: String?
+    
+    var searchMode: SearchMode = .movie
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initialSetup()
     }
+    
+    @IBAction func searchMovie(){
+        guard let searchText = searchTextField.text, searchText.characters.count > 0 else{
+            searchTextField.attributedPlaceholder = createCustomPlaceholder(withMessage: UserMessages.validateEmptyTextFields)
+            return
+        }
+        
+        guard let searchTextReadyForAPI = searchText.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else{ return }
+        
+        fetchMovies(searchText: searchTextReadyForAPI)
+    }
+    
+    fileprivate func fetchMovies(searchText: String){
+        movie = nil
+        movies = nil
+        movieCollectionView.reloadData()
+        
+        switch searchMode{
+        case .movie: fetchMovie(withTitle: searchText)
+        case .actor: fetchMovies(withActor: searchText)
+        case .director: fetchMovies(withDirector: searchText)
+        }
+        
+    }
+    
 }
 
 //MARK: -Initial Setup
@@ -68,8 +101,9 @@ extension MovieHomeVC{
         view.addGestureRecognizer(tapRecognizer)
     }
     
-    fileprivate struct AlertMessages{
-        static let validateEmptyTextFields = "Please fill at least one of the text fields"
+    fileprivate struct UserMessages{
+        static let validateEmptyTextFields = "Please fill this for us..."
+        static let searchLessThanFiveCharacters = "Sorry! Your input length must be greater than 4"
     }
     
     fileprivate struct CellId{
@@ -100,11 +134,35 @@ extension MovieHomeVC: UITextFieldDelegate{
 
 extension MovieHomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        if let count = movies?.count{
+            
+            return count
+            
+        }else{
+            if movie != nil{
+                return 1
+            }
+        }
+        
+            
+        return 0
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellId.movieCellId, for: indexPath) as! MovieCell
+        
+        if let movie = movies?[indexPath.row]{
+            
+            cell.movie = movie
+            
+        }else{
+            
+            if let movie = movie{
+                cell.movie = movie
+            }
+            
+        }
         
         return cell
     }
@@ -114,37 +172,64 @@ extension MovieHomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
 }
 
-/*
-@IBAction func searchMovie(){
-    guard let titleStringWithSpaces = movieTextField.text, let actorStringWithSpaces = actorTextField.text, let directorStringWithSpaces = directorTextField.text else{
-        return
+//MARK: -Fetch Movies Methods
+extension MovieHomeVC{
+    fileprivate func fetchMovie(withTitle title: String){
+        activityIndicator.launchInView(view)
+        MovieService.fetchMovie(withTitle: title) { (movie, errorMessage) in
+            
+            OperationQueue.main.addOperation {
+                self.activityIndicator.stop()
+                if let message = errorMessage{
+                    let alert = self.createAlert(withMessage: message)
+                    self.present(alert, animated: true, completion: nil)
+                }else{
+                    self.movie = movie
+                    self.movieCollectionView.reloadData()
+                }
+            }
+            
+        }
     }
     
-    if titleStringWithSpaces.isEmpty, actorStringWithSpaces.isEmpty, directorStringWithSpaces.isEmpty{
-        let alert = GeneralMethods.createAlert(withMessage: AlertMessages.validateEmptyTextFields)
-        present(alert, animated: true, completion: nil)
-    }else{
-        let title = GeneralMethods.prepareStringForUrl(titleStringWithSpaces)
-        let actor = GeneralMethods.prepareStringForUrl(actorStringWithSpaces)
-        let director = GeneralMethods.prepareStringForUrl(directorStringWithSpaces)
-        
-        fetchMovies(title: title, actor: actor, director: director)
+    fileprivate func fetchMovies(withActor actor: String){
+        activityIndicator.launchInView(view)
+        MovieService.fetchMovies(withActor: actor) { (movies, errorMessage) in
+            OperationQueue.main.addOperation {
+                self.activityIndicator.stop()
+                if let message = errorMessage{
+                    let alert = self.createAlert(withMessage: message)
+                    self.present(alert, animated: true, completion: nil)
+                }else{
+                    self.movies = movies
+                    self.movieCollectionView.reloadData()
+                }
+            }
+        }
     }
-}
-
-private func fetchMovies(title: String, actor: String, director: String){
-    MovieService.getMovies(withTitle: title){ (movie, errorMessage) in
-        
-        OperationQueue.main.addOperation {
-            if let message = errorMessage{
-                let alert = GeneralMethods.createAlert(withMessage: message)
-                self.present(alert, animated: true, completion: nil)
-            }else{
-                self.movie = movie
-                //                    self.goToMoviesVC()
+    
+    fileprivate func fetchMovies(withDirector director: String){
+        activityIndicator.launchInView(view)
+        MovieService.fetchMovies(withDirector: director) { (movies, errorMessage) in
+            OperationQueue.main.addOperation {
+                self.activityIndicator.stop()
+                if let message = errorMessage{
+                    let alert = self.createAlert(withMessage: message)
+                    self.present(alert, animated: true, completion: nil)
+                }else{
+                    self.movies = movies
+                    self.movieCollectionView.reloadData()
+                }
             }
         }
     }
 }
 
-*/
+//MARK: -Custom Placeholder
+
+extension MovieHomeVC{
+    fileprivate func createCustomPlaceholder(withMessage message: String)-> NSAttributedString{
+        let placeholder = NSAttributedString(string: message, attributes: [NSForegroundColorAttributeName: ColorPalette.redPlaceholder])
+        return placeholder
+    }
+}
