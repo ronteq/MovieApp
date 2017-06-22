@@ -50,21 +50,14 @@ class MovieCell: UICollectionViewCell{
     
     var movie: Movie? {
         didSet{
-            if let title = movie?.title{
-                movieTitleLabel.text = title
+            guard let title = movie?.title, let category = movie?.category, let releaseYear = movie?.releaseYear, let posterUrl = movie?.posterUrl else{
+                return
             }
             
-            if let category = movie?.category{
-                categoryLabel.text = "Category: \(category)"
-            }
-            
-            if let releaseYear = movie?.releaseYear{
-                releaseYearLabel.text = "Release Year: \(releaseYear)"
-            }
-            
-            if let posterUrl = movie?.posterUrl{
-                movieImageView.loadImageUsingCacheWith(urlString: posterUrl)
-            }
+            movieTitleLabel.text = title
+            categoryLabel.text = "Category: \(category)"
+            releaseYearLabel.text = "Release Year: \(releaseYear)"
+            movieImageView.loadImageUsingCacheWith(urlString: posterUrl)
         }
     }
     

@@ -8,18 +8,20 @@
 
 import UIKit
 
-enum SearchMethod : Int {
-    case movie = 0
-    case actor = 1
-    case director = 2
+enum SearchMode {
+    case movie
+    case actor
+    case director
 }
 
 class SearchVC: UIViewController{
     
     @IBOutlet fileprivate weak var tableView: UITableView!
     fileprivate let searchNames = ["Search by Movie", "Search by Actor", "Search by Director"]
+    fileprivate let availableSearchModes = [SearchMode.movie, .actor, .director]
+    
     fileprivate let iconImageNames = ["iconMovie", "iconActor", "iconDirector"]
-    fileprivate var searchMethod = 0
+    fileprivate var searchMode : SearchMode = .movie
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +33,7 @@ class SearchVC: UIViewController{
         if let identifier = segue.identifier, identifier == Segues.searchSegue{
             if let movieHomeVC = segue.destination as? MovieHomeVC, let placeholder = sender as? String{
                 movieHomeVC.placeholder = placeholder
-                movieHomeVC.searchMethod = searchMethod
+                movieHomeVC.searchMode = searchMode
             }
         }
     }
@@ -80,14 +82,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if let searchMethod = SearchMethod(rawValue: indexPath.row){
-            switch searchMethod{
-            case .movie: self.searchMethod = searchMethod.rawValue
-            case .actor: self.searchMethod = searchMethod.rawValue
-            case .director: self.searchMethod = searchMethod.rawValue
-            }
-        }
+        self.searchMode = availableSearchModes[indexPath.row]
         
         let placeholder = searchNames[indexPath.row]
         performSegue(withIdentifier: Segues.searchSegue, sender: placeholder)

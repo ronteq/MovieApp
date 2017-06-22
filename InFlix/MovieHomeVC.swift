@@ -20,8 +20,9 @@ class MovieHomeVC: UIViewController {
         return activityIndicator
     }()
     
-    var searchMethod = 0
     var placeholder: String?
+    
+    var searchMode: SearchMode = .movie
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +36,8 @@ class MovieHomeVC: UIViewController {
             return
         }
         
-        let searchTextReadyForAPI = searchText.prepareStringForInflixAPI()
+        guard let searchTextReadyForAPI = searchText.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else{ return }
+        
         fetchMovies(searchText: searchTextReadyForAPI)
     }
     
@@ -44,13 +46,12 @@ class MovieHomeVC: UIViewController {
         movies = nil
         movieCollectionView.reloadData()
         
-        if let searchMethod = SearchMethod(rawValue: self.searchMethod){
-            switch searchMethod{
-            case .movie: fetchMovie(withTitle: searchText)
-            case .actor: fetchMovies(withActor: searchText)
-            case .director: fetchMovies(withDirector: searchText)
-            }
+        switch searchMode{
+        case .movie: fetchMovie(withTitle: searchText)
+        case .actor: fetchMovies(withActor: searchText)
+        case .director: fetchMovies(withDirector: searchText)
         }
+        
     }
     
 }
