@@ -13,15 +13,14 @@ class MovieHomeVC: UIViewController {
     @IBOutlet fileprivate weak var searchTextField: UITextField!
     
     fileprivate var movieCollectionView: UICollectionView!
-    fileprivate var movie: Movie?
     fileprivate var movies: [Movie]?
+    fileprivate var tapGesture: UITapGestureRecognizer!
     fileprivate lazy var activityIndicator: ActivityIndicator = {
         let activityIndicator = ActivityIndicator()
         return activityIndicator
     }()
     
     var placeholder: String?
-    
     var searchMode: SearchMode = .movie
     
     override func viewDidLoad() {
@@ -31,6 +30,8 @@ class MovieHomeVC: UIViewController {
     }
     
     @IBAction func searchMovie(){
+        dismissKeyboard()
+        
         guard let searchText = searchTextField.text, searchText.characters.count > 0 else{
             searchTextField.attributedPlaceholder = createCustomPlaceholder(withMessage: UserMessages.validateEmptyTextFields)
             return
@@ -42,7 +43,6 @@ class MovieHomeVC: UIViewController {
     }
     
     fileprivate func fetchMovies(searchText: String){
-        movie = nil
         movies = nil
         movieCollectionView.reloadData()
         
@@ -65,7 +65,6 @@ extension MovieHomeVC{
         
         setupPlaceholderForTextField()
         setupCollectionView()
-        addTapGestureToView()
     }
     
     fileprivate func setupPlaceholderForTextField(){
@@ -78,6 +77,7 @@ extension MovieHomeVC{
         layout.minimumInteritemSpacing = 0
         
         movieCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        movieCollectionView.keyboardDismissMode = .onDrag
         movieCollectionView.delegate = self
         movieCollectionView.dataSource = self
         movieCollectionView.alwaysBounceVertical = true
@@ -96,11 +96,6 @@ extension MovieHomeVC{
         movieCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -49).isActive = true
     }
     
-    fileprivate func addTapGestureToView(){
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(MovieHomeVC.dismissKeyboard))
-        view.addGestureRecognizer(tapRecognizer)
-    }
-    
     fileprivate struct UserMessages{
         static let validateEmptyTextFields = "Please fill this for us..."
         static let searchLessThanFiveCharacters = "Sorry! Your input length must be greater than 4"
@@ -109,23 +104,17 @@ extension MovieHomeVC{
     fileprivate struct CellId{
         static let movieCellId = "movieCellId"
     }
-    
-    fileprivate struct ScreenSize{
-        static let width: CGFloat = UIScreen.main.bounds.width
-        static let height: CGFloat = UIScreen.main.bounds.height
-    }
 }
 
 //MARK: -Textfield Methods
 
 extension MovieHomeVC: UITextFieldDelegate{
-    @objc fileprivate func dismissKeyboard(){
+    fileprivate func dismissKeyboard(){
         searchTextField.resignFirstResponder()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchTextField.resignFirstResponder()
-        
         return true
     }
 }
@@ -135,40 +124,33 @@ extension MovieHomeVC: UITextFieldDelegate{
 extension MovieHomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let count = movies?.count{
-            
             return count
-            
         }else{
-            if movie != nil{
-                return 1
-            }
+            return 0
         }
-        
-            
-        return 0
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellId.movieCellId, for: indexPath) as! MovieCell
         
         if let movie = movies?[indexPath.row]{
-            
             cell.movie = movie
-            
-        }else{
-            
-            if let movie = movie{
-                cell.movie = movie
-            }
-            
         }
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: ScreenSize.width / 2, height: 220)
+        return CGSize(width: Constants.ScreenSize.width / 2, height: 220)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        dismissKeyboard()
+        
+        guard let movie = movies?[indexPath.item] else { return }
+        let movieDetailVC = MovieDetailVC()
+        movieDetailVC.movie = movie
+        navigationController?.pushViewController(movieDetailVC, animated: true)
     }
 }
 
@@ -176,17 +158,10 @@ extension MovieHomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
 extension MovieHomeVC{
     fileprivate func fetchMovie(withTitle title: String){
         activityIndicator.launchInView(view)
-        MovieService.fetchMovie(withTitle: title) { (movie, errorMessage) in
+        MovieService.fetchMovie(withTitle: title) { (movies, errorMessage) in
             
             OperationQueue.main.addOperation {
-                self.activityIndicator.stop()
-                if let message = errorMessage{
-                    let alert = self.createAlert(withMessage: message)
-                    self.present(alert, animated: true, completion: nil)
-                }else{
-                    self.movie = movie
-                    self.movieCollectionView.reloadData()
-                }
+                self.showMovieInfo(movies, error: errorMessage)
             }
             
         }
@@ -196,14 +171,7 @@ extension MovieHomeVC{
         activityIndicator.launchInView(view)
         MovieService.fetchMovies(withActor: actor) { (movies, errorMessage) in
             OperationQueue.main.addOperation {
-                self.activityIndicator.stop()
-                if let message = errorMessage{
-                    let alert = self.createAlert(withMessage: message)
-                    self.present(alert, animated: true, completion: nil)
-                }else{
-                    self.movies = movies
-                    self.movieCollectionView.reloadData()
-                }
+                self.showMovieInfo(movies, error: errorMessage)
             }
         }
     }
@@ -212,15 +180,19 @@ extension MovieHomeVC{
         activityIndicator.launchInView(view)
         MovieService.fetchMovies(withDirector: director) { (movies, errorMessage) in
             OperationQueue.main.addOperation {
-                self.activityIndicator.stop()
-                if let message = errorMessage{
-                    let alert = self.createAlert(withMessage: message)
-                    self.present(alert, animated: true, completion: nil)
-                }else{
-                    self.movies = movies
-                    self.movieCollectionView.reloadData()
-                }
+                self.showMovieInfo(movies, error: errorMessage)
             }
+        }
+    }
+    
+    fileprivate func showMovieInfo(_ movies: [Movie]?, error: String?){
+        self.activityIndicator.stop()
+        if let message = error{
+            let alert = self.createAlert(withMessage: message)
+            self.present(alert, animated: true, completion: nil)
+        }else{
+            self.movies = movies
+            self.movieCollectionView.reloadData()
         }
     }
 }
