@@ -20,6 +20,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="QkK-Al-CNZ" kind="relationship" relationship="viewControllers" id="WP2-xc-WSu"/>
+                        <segue destination="JRJ-GB-4FG" kind="relationship" relationship="viewControllers" id="rvq-Xm-rY8"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jZP-KF-X8r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -207,11 +208,11 @@
             </objects>
             <point key="canvasLocation" x="1228" y="126.38680659670166"/>
         </scene>
-        <!--Movie-->
+        <!--Movies-->
         <scene sceneID="35m-Kf-iWu">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QkK-Al-CNZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Movie" id="rbx-Tf-prN"/>
+                    <tabBarItem key="tabBarItem" title="Movies" image="tabIconMovie" id="rbx-Tf-prN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fAD-yP-tNH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -226,8 +227,58 @@
             </objects>
             <point key="canvasLocation" x="-298.39999999999998" y="127.28635682158921"/>
         </scene>
+        <!--Favorites-->
+        <scene sceneID="pca-M5-8Lj">
+            <objects>
+                <tableViewController id="9aM-2J-2OV" customClass="FavoriteTVC" customModule="InFlix" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="E4g-Vm-FtP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="favoriteCell" id="2gS-AW-EHh">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2gS-AW-EHh" id="NyJ-iz-PcI">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9aM-2J-2OV" id="SNa-FI-cts"/>
+                            <outlet property="delegate" destination="9aM-2J-2OV" id="NHp-cn-n1Q"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Favorites" id="2iD-jy-jPm"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xyq-6r-Lhk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="480" y="919"/>
+        </scene>
+        <!--Favorites-->
+        <scene sceneID="HFq-UJ-BOc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JRJ-GB-4FG" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favorites" image="tabIconFavorite" id="OBf-Re-5pf"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2VM-oy-5cl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="9aM-2J-2OV" kind="relationship" relationship="rootViewController" id="lHf-PQ-3gX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VOs-zf-FPI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-300" y="919.0140845070423"/>
+        </scene>
     </scenes>
     <resources>
         <image name="movie" width="128" height="128"/>
+        <image name="tabIconFavorite" width="32" height="32"/>
+        <image name="tabIconMovie" width="32" height="32"/>
     </resources>
 </document>

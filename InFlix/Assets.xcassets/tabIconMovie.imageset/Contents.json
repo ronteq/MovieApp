@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "tabIconMovie.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "mummy.jpeg",
+      "filename" : "tabIconMovie@2x.png",
       "scale" : "2x"
     },
     {

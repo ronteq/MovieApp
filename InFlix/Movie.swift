@@ -51,6 +51,23 @@ class Movie{
         
     }
     
+    convenience init?(favoriteMovie: FavoriteMovie){
+        guard let title = favoriteMovie.title,
+            let releaseYear = favoriteMovie.releaseYear,
+            let rating = favoriteMovie.rating,
+            let category = favoriteMovie.category,
+            let cast = favoriteMovie.cast,
+            let director = favoriteMovie.director,
+            let summary = favoriteMovie.summary,
+            let posterUrl = favoriteMovie.posterUrl,
+            let runtime = favoriteMovie.runtime else{
+                return nil
+        }
+        
+        self.init(title: title, releaseYear: releaseYear, rating: rating, category: category, cast: cast, director: director, summary: summary, posterUrl: posterUrl
+            , runtime: runtime)
+    }
+    
     static func getMovieListFromArray(_ arrayDictionary: [[String: AnyObject]])-> [Movie]{
         var movies = [Movie]()
         

@@ -76,15 +76,23 @@ class MovieDetailVC: UIViewController {
     fileprivate lazy var saveButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = ColorPalette.defaultRed
-        button.setTitle("SAVE TO FAVORITES", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
+        button.addTarget(self, action: #selector(MovieDetailVC.actionOnMovie), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
+    fileprivate var movieIsFavorite = false
+    
     var movie: Movie?{
         didSet{
-            guard let title = movie?.title, let releaseYear = movie?.releaseYear, let category = movie?.category, let director = movie?.director, let summary = movie?.summary, let posterUrl = movie?.posterUrl, let runtime = movie?.runtime else { return }
+            guard let title = movie?.title,
+                let releaseYear = movie?.releaseYear,
+                let category = movie?.category,
+                let director = movie?.director,
+                let summary = movie?.summary,
+                let posterUrl = movie?.posterUrl,
+                let runtime = movie?.runtime else { return }
             
             posterImageView.loadImageUsingCacheWith(urlString: posterUrl)
             titleLabel.text = title
@@ -101,7 +109,14 @@ class MovieDetailVC: UIViewController {
         
         initialSetup()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        didMovieIsInFavorites()
+    }
 }
+
+//MARK: -Initial Setup
 
 extension MovieDetailVC{
     fileprivate func initialSetup(){
@@ -167,5 +182,40 @@ extension MovieDetailVC{
         stackview.topAnchor.constraint(equalTo: summaryLabel.bottomAnchor, constant: 16).isActive = true
         stackview.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         stackview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+    }
+    
+    fileprivate struct ButtonLabel{
+        static let favoriteTitle = "REMOVE FROM FAVORITES"
+        static let normalTitle = "SAVE TO FAVORITES"
+    }
+}
+
+//MARK: -CoreData Methods
+
+extension MovieDetailVC{
+    @objc fileprivate func actionOnMovie(){
+        guard let movie = movie, let title = movie.title else { return }
+        guard let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else { return }
+        
+        
+        if movieIsFavorite{
+            FavoriteMovie.deleteMovie(withTitle: title, context: context)
+        }else{
+            FavoriteMovie.saveMovie(context: context, movie: movie)
+        }
+        
+        didMovieIsInFavorites()
+    }
+    
+    fileprivate func didMovieIsInFavorites(){
+        guard let title = movie?.title else { return }
+        guard let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else { return }
+        
+        movieIsFavorite = FavoriteMovie.movieIsFavorite(withTitle: title, context: context)
+        if movieIsFavorite{
+            saveButton.setTitle(ButtonLabel.favoriteTitle, for: .normal)
+        }else{
+            saveButton.setTitle(ButtonLabel.normalTitle, for: .normal)
+        }
     }
 }
