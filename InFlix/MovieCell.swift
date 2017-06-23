@@ -25,7 +25,7 @@ class MovieCell: UICollectionViewCell{
         label.textColor = UIColor.darkGray
         label.textAlignment = .center
         label.numberOfLines = 2
-        label.font = UIFont(name: Constants.Fonts.fontStyleForTitleCells, size: CGFloat(Constants.Fonts.fontSizeForNormalCells))
+        label.font = UIFont(name: Constants.Fonts.fontStyleForTitleCells, size: Constants.Fonts.fontSizeForNormalCells)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -34,7 +34,7 @@ class MovieCell: UICollectionViewCell{
         let label = UILabel()
         label.textColor = UIColor.darkGray
         label.textAlignment = .center
-        label.font = UIFont(name: Constants.Fonts.fontStyleForNormalCells, size: CGFloat(Constants.Fonts.fontSizeForDetailCells))
+        label.font = UIFont(name: Constants.Fonts.fontStyleForNormalCells, size: Constants.Fonts.fontSizeForDetailCells)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -43,7 +43,7 @@ class MovieCell: UICollectionViewCell{
         let label = UILabel()
         label.textColor = UIColor.darkGray
         label.textAlignment = .center
-        label.font = UIFont(name: Constants.Fonts.fontStyleForNormalCells, size: CGFloat(Constants.Fonts.fontSizeForDetailCells))
+        label.font = UIFont(name: Constants.Fonts.fontStyleForNormalCells, size: Constants.Fonts.fontSizeForDetailCells)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

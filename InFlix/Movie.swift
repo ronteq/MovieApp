@@ -15,16 +15,18 @@ class Movie{
     var category: String?
     var cast: String?
     var director: String?
+    var summary: String?
     var posterUrl: String?
     var runtime: String?
     
-    init(title: String, releaseYear: String, rating: String, category: String, cast: String, director: String, posterUrl: String, runtime: String) {
+    init(title: String, releaseYear: String, rating: String, category: String, cast: String, director: String, summary: String, posterUrl: String, runtime: String) {
         self.title = title
         self.releaseYear = releaseYear
         self.rating = rating
         self.category = category
         self.cast = cast
         self.director = director
+        self.summary = summary
         self.posterUrl = posterUrl
         self.runtime = runtime
     }
@@ -37,13 +39,14 @@ class Movie{
             let category = dictionary[JSONKeys.category] as? String,
             let cast = dictionary[JSONKeys.showCast] as? String,
             let director = dictionary[JSONKeys.director] as? String,
+            let summary = dictionary[JSONKeys.summary] as? String,
             let posterUrl = dictionary[JSONKeys.posterUrl] as? String,
             let runtime = dictionary[JSONKeys.runtime] as? String else{
-                self.init(title: "", releaseYear: "", rating: "", category: "", cast: "", director: "", posterUrl: "", runtime: "")
+                self.init(title: "", releaseYear: "", rating: "", category: "", cast: "", director: "", summary: "", posterUrl: "", runtime: "")
                 return
         }
         
-        self.init(title: title, releaseYear: releaseYear, rating: rating, category: category, cast: cast, director: director, posterUrl: posterUrl
+        self.init(title: title, releaseYear: releaseYear, rating: rating, category: category, cast: cast, director: director, summary: summary, posterUrl: posterUrl
             , runtime: runtime)
         
     }
@@ -67,6 +70,7 @@ fileprivate struct JSONKeys{
     static let category = "category"
     static let showCast = "show_cast"
     static let director = "director"
+    static let summary = "summary"
     static let posterUrl = "poster"
     static let runtime = "runtime"
 }

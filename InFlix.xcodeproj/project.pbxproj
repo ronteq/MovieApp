@@ -14,6 +14,7 @@
 		4C83C3ED1EFAFF27002271F0 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C83C3EC1EFAFF27002271F0 /* ColorPalette.swift */; };
 		4C83C3EF1EFB1D71002271F0 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C83C3EE1EFB1D71002271F0 /* ImageView.swift */; };
 		4C83C3F11EFB22E4002271F0 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C83C3F01EFB22E4002271F0 /* ActivityIndicator.swift */; };
+		4C84549B1EFC68DD00926E63 /* MovieDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C84549A1EFC68DD00926E63 /* MovieDetailVC.swift */; };
 		4C872E381EF9859200B256EE /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C872E371EF9859200B256EE /* SearchCell.swift */; };
 		4C97F1E11EF8596100F9C1DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C97F1E01EF8596100F9C1DA /* AppDelegate.swift */; };
 		4C97F1E61EF8596100F9C1DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C97F1E41EF8596100F9C1DA /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 		4C83C3EC1EFAFF27002271F0 /* ColorPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		4C83C3EE1EFB1D71002271F0 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		4C83C3F01EFB22E4002271F0 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		4C84549A1EFC68DD00926E63 /* MovieDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailVC.swift; sourceTree = "<group>"; };
 		4C872E371EF9859200B256EE /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		4C97F1DD1EF8596100F9C1DA /* InFlix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InFlix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C97F1E01EF8596100F9C1DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			children = (
 				4C97F2081EF8623000F9C1DA /* SearchVC.swift */,
 				4C97F20C1EF868BC00F9C1DA /* MovieHomeVC.swift */,
+				4C84549A1EFC68DD00926E63 /* MovieDetailVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				4C83C3ED1EFAFF27002271F0 /* ColorPalette.swift in Sources */,
 				4C97F2071EF85FE000F9C1DA /* Constants.swift in Sources */,
 				4C56EBC41EF9BD5000D14AAC /* Alert.swift in Sources */,
+				4C84549B1EFC68DD00926E63 /* MovieDetailVC.swift in Sources */,
 				4C97F20B1EF8626200F9C1DA /* Movie.swift in Sources */,
 				4C83C3F11EFB22E4002271F0 /* ActivityIndicator.swift in Sources */,
 				4C97F2131EF8708100F9C1DA /* MovieService.swift in Sources */,

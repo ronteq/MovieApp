@@ -9,7 +9,7 @@
 import Foundation
 
 class MovieService{
-    static func fetchMovie(withTitle searchText: String, completion: @escaping(_ movie: Movie?, _ errorMessage: String?)-> Void){
+    static func fetchMovie(withTitle searchText: String, completion: @escaping(_ movies: [Movie]?, _ errorMessage: String?)-> Void){
         guard let url = URL(string: APIEndpoints.movieListUrl(withTitle: searchText)) else { return }
         var request = URLRequest(url: url)
         
@@ -29,7 +29,8 @@ class MovieService{
                         switch responseCode {
                         case .success:
                             let movie = Movie(dictionary: json)
-                            completion(movie, nil)
+                            let movies = [movie]
+                            completion(movies, nil)
                             
                         case .notFound:
                             let errorMessage = getErrorMessage(from: json)
